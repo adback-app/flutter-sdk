@@ -1,0 +1,249 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.3.2 effective-5.10 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -module-name AdbackSDK
+// swift-module-flags-ignorable:  -formal-cxx-interoperability-mode=off -interface-compiler-version 6.3.2
+import AdServices
+import Darwin
+import Foundation
+import Swift
+import UIKit
+import WebKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum AdbackEnvironment : Swift.String, Swift.Codable, Swift.Equatable {
+  case development
+  case production
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AdbackPlatform : Swift.String, Swift.Codable, Swift.Equatable {
+  case ios
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AdbackLogLevel : Swift.String, Swift.Codable, Swift.Equatable {
+  case off
+  case error
+  case warn
+  case info
+  case debug
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct AdbackOptions : Swift.Equatable {
+  public var apiBaseURL: Foundation.URL
+  public var debug: Swift.Bool
+  public var environment: AdbackSDK.AdbackEnvironment
+  public var logLevel: AdbackSDK.AdbackLogLevel
+  public var networkEnabled: Swift.Bool
+  public var wrapperName: Swift.String?
+  public var wrapperVersion: Swift.String?
+  public init(environment: AdbackSDK.AdbackEnvironment = .production, apiBaseURL: Foundation.URL = URL(string: "https://api.adback.app")!, debug: Swift.Bool = false, logLevel: AdbackSDK.AdbackLogLevel = .error, networkEnabled: Swift.Bool = true, wrapperName: Swift.String? = nil, wrapperVersion: Swift.String? = nil)
+  public static func == (a: AdbackSDK.AdbackOptions, b: AdbackSDK.AdbackOptions) -> Swift.Bool
+}
+public struct AdbackConfiguration : Swift.Equatable {
+  public let apiKey: Swift.String
+  public let options: AdbackSDK.AdbackOptions
+  public static func == (a: AdbackSDK.AdbackConfiguration, b: AdbackSDK.AdbackConfiguration) -> Swift.Bool
+}
+public enum Adback {
+  public static func configure(apiKey: Swift.String, options: AdbackSDK.AdbackOptions = .init())
+  public static func reset()
+  public static func isConfigured() -> Swift.Bool
+  public static func currentConfiguration() -> AdbackSDK.AdbackConfiguration?
+  public static func getAdbackId() -> Swift.String?
+  public static func getAttributionParams() async -> [Swift.String : Swift.String]?
+  public static func track(_ eventName: AdbackSDK.AdbackStandardEvent, properties: [Swift.String : AdbackSDK.AdbackPropertyValue] = [:], user: AdbackSDK.AdbackUser = .init())
+  public static func flush() async
+  public static func enableAppleAdsAttribution()
+}
+@_hasMissingDesignatedInitializers final public class AdbackClient {
+  convenience public init()
+  final public var isConfigured: Swift.Bool {
+    get
+  }
+  final public var configuration: AdbackSDK.AdbackConfiguration? {
+    get
+  }
+  final public var remoteConfig: AdbackSDK.AdbackRemoteConfig? {
+    get
+  }
+  final public func getAdbackId() -> Swift.String?
+  final public func getAttributionParams() async -> [Swift.String : Swift.String]?
+  final public func configure(apiKey: Swift.String, options: AdbackSDK.AdbackOptions = .init())
+  final public func reset()
+  final public func track(_ eventName: AdbackSDK.AdbackStandardEvent, properties: [Swift.String : AdbackSDK.AdbackPropertyValue] = [:], user: AdbackSDK.AdbackUser = .init())
+  final public func flush() async
+  final public func enableAppleAdsAttribution()
+  @objc deinit
+}
+public enum AdbackStandardEvent : Swift.String, Swift.CaseIterable, Swift.Codable, Swift.Equatable {
+  case install
+  case login
+  case signUp
+  case addToCart
+  case addToWishlist
+  case initiateCheckout
+  case startTrial
+  case levelStart
+  case levelComplete
+  case tutorialComplete
+  case search
+  case viewItem
+  case viewContent
+  case share
+  @available(*, deprecated, message: "Use signUp. register serializes as SIGN_UP.")
+  public static var register: AdbackSDK.AdbackStandardEvent {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [AdbackSDK.AdbackStandardEvent]
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [AdbackSDK.AdbackStandardEvent] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AdbackEventType : Swift.String, Swift.Codable, Swift.Equatable {
+  case standard
+  case custom
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AdbackTriggerType : Swift.String, Swift.Codable, Swift.Equatable {
+  case automatic
+  case manual
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AdbackPropertyValue : Swift.Codable, Swift.Equatable {
+  case bool(Swift.Bool)
+  case double(Swift.Double)
+  case int(Swift.Int)
+  case string(Swift.String)
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  public static func == (a: AdbackSDK.AdbackPropertyValue, b: AdbackSDK.AdbackPropertyValue) -> Swift.Bool
+}
+public struct AdbackSDKContext : Swift.Codable, Swift.Equatable {
+  public var name: Swift.String
+  public var version: Swift.String
+  public var wrapperName: Swift.String?
+  public var wrapperVersion: Swift.String?
+  public init(name: Swift.String = "adback-ios", version: Swift.String, wrapperName: Swift.String? = nil, wrapperVersion: Swift.String? = nil)
+  public static func == (a: AdbackSDK.AdbackSDKContext, b: AdbackSDK.AdbackSDKContext) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AdbackEventContext : Swift.Codable, Swift.Equatable {
+  public var appBuild: Swift.String?
+  public var appVersion: Swift.String?
+  public var bundleID: Swift.String?
+  public var deviceModel: Swift.String?
+  public var idfv: Swift.String?
+  public var isDebug: Swift.Bool
+  public var locale: Swift.String?
+  public var osName: Swift.String?
+  public var osVersion: Swift.String?
+  public var timezone: Swift.String?
+  public init(isDebug: Swift.Bool = false, appVersion: Swift.String? = nil, appBuild: Swift.String? = nil, bundleID: Swift.String? = nil, deviceModel: Swift.String? = nil, idfv: Swift.String? = nil, osName: Swift.String? = nil, osVersion: Swift.String? = nil, locale: Swift.String? = nil, timezone: Swift.String? = nil)
+  public static func == (a: AdbackSDK.AdbackEventContext, b: AdbackSDK.AdbackEventContext) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AdbackAttributionContext : Swift.Codable, Swift.Equatable {
+  public var adServicesTokenPresent: Swift.Bool
+  public var deeplinkID: Swift.String?
+  public var matchTraceID: Swift.String?
+  public init(adServicesTokenPresent: Swift.Bool = false, deeplinkID: Swift.String? = nil, matchTraceID: Swift.String? = nil)
+  public static func == (a: AdbackSDK.AdbackAttributionContext, b: AdbackSDK.AdbackAttributionContext) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AdbackUserMatchData : Swift.Codable, Swift.Equatable {
+  public var dateOfBirth: Swift.String?
+  public var email: Swift.String?
+  public var externalID: Swift.String?
+  public var firstName: Swift.String?
+  public var lastName: Swift.String?
+  public var phone: Swift.String?
+  public init(email: Swift.String? = nil, phone: Swift.String? = nil, firstName: Swift.String? = nil, lastName: Swift.String? = nil, dateOfBirth: Swift.String? = nil, externalID: Swift.String? = nil)
+  public static func == (a: AdbackSDK.AdbackUserMatchData, b: AdbackSDK.AdbackUserMatchData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AdbackUser : Swift.Equatable {
+  public var customerUserID: Swift.String?
+  public var matchData: AdbackSDK.AdbackUserMatchData
+  public init(customerUserID: Swift.String? = nil, matchData: AdbackSDK.AdbackUserMatchData = .init())
+  public static func == (a: AdbackSDK.AdbackUser, b: AdbackSDK.AdbackUser) -> Swift.Bool
+}
+public enum AdbackEventValidationError : Swift.Error, Swift.Equatable {
+  case identityFieldInProperties(Swift.String)
+  case invalidCustomEventName(Swift.String)
+  public static func == (a: AdbackSDK.AdbackEventValidationError, b: AdbackSDK.AdbackEventValidationError) -> Swift.Bool
+}
+public struct AdbackEventEnvelope : Swift.Codable, Swift.Equatable {
+  public let adbackID: Swift.String?
+  public let appID: Swift.String
+  public let attribution: AdbackSDK.AdbackAttributionContext
+  public let clientTimestampMs: Swift.Int64
+  public let context: AdbackSDK.AdbackEventContext
+  public let customerUserID: Swift.String?
+  public let environment: AdbackSDK.AdbackEnvironment
+  public let eventID: Foundation.UUID
+  public let eventName: Swift.String
+  public let eventType: AdbackSDK.AdbackEventType
+  public let installID: Swift.String?
+  public let platform: AdbackSDK.AdbackPlatform
+  public let properties: [Swift.String : AdbackSDK.AdbackPropertyValue]
+  public let schemaVersion: Swift.Int
+  public let sdk: AdbackSDK.AdbackSDKContext
+  public let triggerType: AdbackSDK.AdbackTriggerType
+  public let userMatchData: AdbackSDK.AdbackUserMatchData
+  public init(eventID: Foundation.UUID = UUID(), eventName: AdbackSDK.AdbackStandardEvent, triggerType: AdbackSDK.AdbackTriggerType, installID: Swift.String?, adbackID: Swift.String? = nil, user: AdbackSDK.AdbackUser = .init(), appID: Swift.String, environment: AdbackSDK.AdbackEnvironment, platform: AdbackSDK.AdbackPlatform = .ios, sdk: AdbackSDK.AdbackSDKContext, context: AdbackSDK.AdbackEventContext = .init(), attribution: AdbackSDK.AdbackAttributionContext = .init(), properties: [Swift.String : AdbackSDK.AdbackPropertyValue] = [:], clientDate: Foundation.Date = Date()) throws
+  public static func custom(eventID: Foundation.UUID = UUID(), name: Swift.String, installID: Swift.String?, adbackID: Swift.String? = nil, user: AdbackSDK.AdbackUser = .init(), appID: Swift.String, environment: AdbackSDK.AdbackEnvironment, platform: AdbackSDK.AdbackPlatform = .ios, sdk: AdbackSDK.AdbackSDKContext, context: AdbackSDK.AdbackEventContext = .init(), attribution: AdbackSDK.AdbackAttributionContext = .init(), properties: [Swift.String : AdbackSDK.AdbackPropertyValue] = [:], clientDate: Foundation.Date = Date()) throws -> AdbackSDK.AdbackEventEnvelope
+  public static func == (a: AdbackSDK.AdbackEventEnvelope, b: AdbackSDK.AdbackEventEnvelope) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct AdbackRemoteConfig : Swift.Codable, Swift.Equatable {
+  public let appID: Swift.String
+  public let lockWindows: [Swift.String : Swift.String]
+  public let sdkEnabled: Swift.Bool
+  public let useInstallDetectionV2: Swift.Bool
+  public let values: [Swift.String]
+  public static func == (a: AdbackSDK.AdbackRemoteConfig, b: AdbackSDK.AdbackRemoteConfig) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension AdbackSDK.AdbackEnvironment : Swift.Hashable {}
+extension AdbackSDK.AdbackEnvironment : Swift.RawRepresentable {}
+extension AdbackSDK.AdbackPlatform : Swift.Hashable {}
+extension AdbackSDK.AdbackPlatform : Swift.RawRepresentable {}
+extension AdbackSDK.AdbackLogLevel : Swift.Hashable {}
+extension AdbackSDK.AdbackLogLevel : Swift.RawRepresentable {}
+extension AdbackSDK.AdbackStandardEvent : Swift.Hashable {}
+extension AdbackSDK.AdbackStandardEvent : Swift.RawRepresentable {}
+extension AdbackSDK.AdbackEventType : Swift.Hashable {}
+extension AdbackSDK.AdbackEventType : Swift.RawRepresentable {}
+extension AdbackSDK.AdbackTriggerType : Swift.Hashable {}
+extension AdbackSDK.AdbackTriggerType : Swift.RawRepresentable {}

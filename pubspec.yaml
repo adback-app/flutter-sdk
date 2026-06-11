@@ -1,0 +1,29 @@
+name: adback_flutter
+description: Flutter wrapper for the Adback mobile attribution SDK.
+version: 0.1.0
+homepage: https://console.adback.app
+repository: https://github.com/adback-app/flutter-sdk
+issue_tracker: https://github.com/adback-app/flutter-sdk/issues
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: app.adback.flutter
+        pluginClass: AdbackFlutterPlugin
+      ios:
+        pluginClass: AdbackFlutterPlugin
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.1.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
